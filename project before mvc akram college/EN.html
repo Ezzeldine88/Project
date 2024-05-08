@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Need</title>
+    <link rel="stylesheet" href="EN.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+</head>
+<body style="background-image: url('EA.png'); background-repeat: no-repeat; background-size: cover;">
+    <div class="container">
+        <div class="box">
+            <h3>Chat with Us</h3>
+            <form action="submit_chat.php" method="post" id="chat-form">
+                <div class="name">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name" id="name" name="name" required>
+                </div>
+                <div class="email">
+                    <i class='bx bxs-phone'></i>
+                    <input type="number" placeholder="Phone number" id="phone" name="phone" required>
+                </div>
+                <div class="message-box">
+                    <textarea id="msg" cols="30" rows="10" placeholder="Message" name="message" required></textarea>
+                </div>
+                <div class="button">
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+            <div class="message">
+                <div class="success" id="success">Your message has been successfully sent! One of our representatives will contact you as soon as possible. Thank you!</div>
+                <div class="danger" id="danger">Fields cannot be empty!</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="EN.js"></script>
+</body>
+</html>
