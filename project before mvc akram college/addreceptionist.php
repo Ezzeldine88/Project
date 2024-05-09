@@ -20,21 +20,17 @@
     <h1>Manage Receptionist Accounts</h1>
     
     <?php
-    // Establish a connection to your MySQL database
     $servername = "localhost";
-    $username = "root"; // Change this to your MySQL username
-    $password = ""; // Change this to your MySQL password
-    $dbname = "clinic"; // Change this to your database name
+    $username = "root"; 
+    $password = ""; 
+    $dbname = "clinic";
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Handle CRUD operations
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Add Receptionist Account
         if (isset($_POST['add_receptionist'])) {
@@ -50,7 +46,6 @@
                 echo "Error adding receptionist account: " . $conn->error;
             }
         }
-        // Update Receptionist Account
         elseif (isset($_POST['update_receptionist'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -63,7 +58,6 @@
                 echo "Error updating receptionist account: " . $conn->error;
             }
         }
-        // Delete Receptionist Account
         elseif (isset($_POST['delete_receptionist'])) {
             $username = $_POST['username'];
 
@@ -77,19 +71,16 @@
         }
     }
 
-    // Retrieve receptionist accounts from the database
     $sql = "SELECT * FROM receptionists";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Display receptionist accounts in a table
         echo "<table>";
         echo "<tr><th>Username</th><th>Password</th><th>Actions</th></tr>";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['password'] . "</td>";
-            // Form for updating receptionist account
             echo "<td><form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
             echo "<input type='hidden' name='username' value='" . $row['username'] . "'>";
             echo "<input type='password' name='password' value='" . $row['password'] . "' required>";
