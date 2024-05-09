@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
 include_once '../Controller/ReadController.php';
+
 ?>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
