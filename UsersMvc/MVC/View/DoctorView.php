@@ -20,8 +20,8 @@
 
     <h1>Manage Doctor Accounts</h1>
     
-    <!-- Display doctors table -->
-    <?php include '../Controller/DoctorController.php'; // Adjust the path as needed
+    
+    <?php include '../Controller/DoctorController.php';
  ?>
     
     <form action="admindashboard.html" method="get">
