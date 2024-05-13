@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Cash</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="cashdonation.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Donate Cash</h2>
+    <form id="cashDonationForm" action="CashDonationController.php" method="POST">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount ($):</label>
+            <input type="number" class="form-control" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Donate Now</button>
+    </form>
+</div>
+</body>
+</html>
