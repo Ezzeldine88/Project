@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations</title>
+    <link rel="stylesheet" href="cashdonation.css">
+</head>
+<body style="background-image: url('cashdonation.jpeg'); background-repeat: no-repeat; background-size: cover;">
 
+<div class="container">
+    <header>
+        <h1>Donate</h1>
+        <p>Our clinic is a nonprofit organization. All donations are tax-deductible.</p>
+    </header>
+    <main>
+        <form action="cashdonations.php" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Donation Amount ($):</label>
+                <input type="number" id="amount" name="amount" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment Method:</label>
+                <select id="payment" name="payment" onchange="togglePaymentFields()">
+                    <option value="cash"><i class='bx bxs-money'></i> Cash</option>
+                    <option value="visa"><i class='bx bxs-credit-card'></i> Visa</option>
+                    <option value="fawry"><i class='bx bxs-barcode-reader'></i> Fawry</option>
+                    <option value="instapay"><i class='bx bxs-mobile'></i> InstaPay</option>
+                </select>
+            </div>
+            <div id="card-info" class="form-group" style="display: none;">
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card-number" required>
+                <label for="holder-name">Cardholder Name:</label>
+                <input type="text" id="holder-name" name="holder-name" required>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required>
+                <label for="expiration">Expiration Date:</label>
+                <input type="text" id="expiration" name="expiration" placeholder="MM/YYYY" required>
+            </div>
+            <div id="fawry-info" class="form-group" style="display: none;">
+                <label for="fawry-code">Fawry Payment Code:</label>
+                <input type="text" id="fawry-code" name="fawry-code" readonly>
+                <label for="fawry-number">Fawry Number:</label>
+                <input type="text" id="fawry-number" name="fawry-number" readonly>
+            </div>
+            <div class="form-group" id="instapay-info" style="display: none;">
+                <p>InstaPay Phone Number: 01032765977</p>
+            </div>
+            <div class="form-group">
+                <label for="message">Message (optional):</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="donate()">Donate Now</button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<script>
+    function togglePaymentFields() {
+        var paymentMethod = document.getElementById("payment").value;
+        var cardInfo = document.getElementById("card-info");
+        var fawryInfo = document.getElementById("fawry-info");
+        var instapayInfo = document.getElementById("instapay-info");
+
+        if (paymentMethod === "visa") {
+            cardInfo.style.display = "block";
+            fawryInfo.style.display = "none";
+            instapayInfo.style.display = "none";
+        } else if (paymentMethod === "fawry") {
+            cardInfo.style.display = "none";
+            fawryInfo.style.display = "block";
+            instapayInfo.style.display = "none";
+
+            document.getElementById("fawry-code").value = generateRandomNumber(100000, 999999);
+            document.getElementById("fawry-number").value = generateRandomNumber(10000000000, 99999999999);
+        } else if (paymentMethod === "instapay") {
+            cardInfo.style.display = "none";
+            fawryInfo.style.display = "none";
+            instapayInfo.style.display = "block";
+        } else {
+            cardInfo.style.display = "none";
+            fawryInfo.style.display = "none";
+            instapayInfo.style.display = "none";
+        }
+    }
+
+    function generateRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function donate() {
+        // Submit the form using AJAX
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData(document.querySelector('form'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("Thank you for your donation!");
+                    redirectToHomePage();
+                } else {
+                    alert("Failed to process donation. Please try again later.");
+                }
+            }
+        };
+        xhr.open('POST', 'cashdonations.php', true);
+        xhr.send(formData);
+    }
+
+    function redirectToHomePage() {
+        window.location.href = "home2.html";
+    }
+
+</script>
+
+</body>
+</html>
