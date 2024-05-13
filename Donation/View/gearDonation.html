@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Gear</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="geardonation.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Donate Gear</h2>
+    <form id="gearDonationForm" action="GearDonationController.php" method="POST">
+        <div class="form-group">
+            <label for="gearType">Gear Type:</label>
+            <select class="form-control" name="gear_type" required>
+                <option value="Masks">Masks</option>
+                <option value="Gloves">Gloves</option>
+                <option value="Gowns">Gowns</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Donate Now</button>
+    </form>
+</div>
+</body>
+</html>
