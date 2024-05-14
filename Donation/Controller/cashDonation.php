@@ -1,13 +1,29 @@
-include 'DonationModel.php';
-$conn = new mysqli("localhost", "root", "", "clinic");  // Ideally, connection details should be in a config file or injected.
+<?php
+include_once 'model/CashDonationModel.php';
 
-$donationModel = new DonationModel($conn);
+class CashDonationController {
+    private $model;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $result = $donationModel->addCashDonation($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['amount'], $_POST['payment'], $_POST['message']);
-    if ($result) {
-        echo "Thank you for your donation!";
-    } else {
-        echo "Error: Something went wrong.";
-    }
+    public function __construct() {
+        $this->model = new CashDonationModel();
+    }
+
+    public function handleDonation() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $data = [
+                'name' => htmlspecialchars($_POST['name']),
+                'email' => htmlspecialchars($_POST['email']),
+                'phone' => htmlspecialchars($_POST['phone']),
+                'amount' => floatval($_POST['amount']),
+                'payment_method' => htmlspecialchars($_POST['payment']),
+                'message' => htmlspecialchars($_POST['message'])
+            ];
+
+            $result = $this->model->addCashDonation($data);
+            echo $result ? "Thank you for your donation!" : "Error: Something went wrong.";
+        } else {
+            include 'view/cashDonationView.php';
+    }
 }
+}
+?>
