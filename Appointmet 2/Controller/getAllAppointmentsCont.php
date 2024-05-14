@@ -1,5 +1,5 @@
 <?php
-require_once "c:/xampp/htdocs/test/Model/GetAllAppointmentsModel.php"; // Include the model class
+require_once "c:/xampp/htdocs/test/Model/GetAllAppointmentsModel.php"; 
 
 class GetAllAppointmentsController {
     private $model;
