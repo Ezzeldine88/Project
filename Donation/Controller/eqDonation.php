@@ -1,13 +1,33 @@
-include 'DonationModel.php';
-$conn = new mysqli("localhost", "root", "", "clinic");  // Consider using a configuration file for credentials
+<?php
+include_once 'model/EquipmentDonationModel.php';
 
-$donationModel = new DonationModel($conn);
+class EquipmentDonationController {
+    private $model;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $result = $donationModel->addEquipmentDonation($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['equipment_type'], $_POST['equipment_used'], $_POST['amount'], $_POST['purchase_date'], $_POST['cost'], $_POST['made_in'], $_POST['message']);
-    if ($result) {
-        echo "Thank you for your equipment donation!";
-    } else {
-        echo "Error: " . $conn->error;
-    }
+    public function __construct() {
+        $this->model = new EquipmentDonationModel();
+    }
+
+    public function handleDonation() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $data = [
+                'name' => htmlspecialchars($_POST['name']),
+                'email' => htmlspecialchars($_POST['email']),
+                'phone' => htmlspecialchars($_POST['phone']),
+                'equipment_type' => htmlspecialchars($_POST['equipment-type']),
+                'equipment_used' => htmlspecialchars($_POST['equipment-used']),
+                'amount' => intval($_POST['amount']),
+                'purchase_date' => htmlspecialchars($_POST['purchase-date']),
+                'cost' => floatval($_POST['cost']),
+                'made_in' => htmlspecialchars($_POST['made-in']),
+                'message' => htmlspecialchars($_POST['message'])
+            ];
+
+            $result = $this->model->addEquipmentDonation($data);
+            echo $result ? "Thank you for your equipment donation!" : "Error: Something went wrong.";
+        } else {
+            include 'view/equipmentDonationView.php';
+    }
 }
+}
+?>
