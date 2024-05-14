@@ -1,9 +1,6 @@
 <?php
-include 'DonationModel.php';
+
 include 'DonationStrategy.php';
-include 'CashDonation.php';
-include 'EquipmentDonation.php';
-include 'GearDonation.php';
 
 $conn = new mysqli("localhost", "root", "", "clinic");  
 
