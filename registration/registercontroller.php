@@ -14,7 +14,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Full name is required.";
     }
 
-    // Other validation checks...
+       if (empty($username)) {
+        $errors[] = "Username is required.";
+    } elseif (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+        $errors[] = "Username can only contain letters, numbers, and underscores.";
+    }
+
+    if (empty($email)) {
+        $errors[] = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email format.";
+    }
+
+    if (empty($password)) {
+        $errors[] = "Password is required.";
+    } elseif (strlen($password) < 6) {
+        $errors[] = "Password must be at least 6 characters long.";
+    }
+
+    if ($password !== $confirm_password) {
+        $errors[] = "Passwords do not match.";
+    }
 
     if (empty($errors)) {
         $registrationModel = new RegistrationModel();
